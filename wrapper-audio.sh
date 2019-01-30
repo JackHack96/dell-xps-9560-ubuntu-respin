@@ -91,13 +91,6 @@ default-fragment-size-msec = 125
 deferred-volume-safety-margin-usec = 1
 ; deferred-volume-extra-delay-usec = 0" > /etc/pulse/daemon.conf
 
-# Disable Intel Sound HDA power saving to eliminate sound cracking
-# Temporary fix
-echo 0 > /sys/module/snd_hda_intel/parameters/power_save
-# Permament fix (will continue working after reboot)
-touch /etc/modprobe.d/audio_powersave.conf
-echo options snd_hda_intel power_save=0 > /etc/modprobe.d/audio_powersave.conf
-
 # Enable LDAC, APTX, APTX-HD, AAC support in PulseAudio Bluetooth module
 add-apt-repository ppa:eh5/pulseaudio-a2dp
 apt-get update
