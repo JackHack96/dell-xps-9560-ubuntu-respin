@@ -91,6 +91,17 @@ default-fragment-size-msec = 125
 deferred-volume-safety-margin-usec = 1
 ; deferred-volume-extra-delay-usec = 0" > /etc/pulse/daemon.conf
 
+
+echo "#disable suspend on idle
+.include /etc/pulse/default.pa
+unload-module module-suspend-on-idle
+
+#fix audio stuttering with wifi stream
+load-module module-null-sink sink_name=rtp
+load-module module-rtp-send source=rtp.monitor
+set-default-sink rtp
+load-module module-rtp-recv" > ~/.config/pulse/default.pa
+
 # Enable LDAC, APTX, APTX-HD, AAC support in PulseAudio Bluetooth module
 add-apt-repository ppa:eh5/pulseaudio-a2dp
 apt-get update

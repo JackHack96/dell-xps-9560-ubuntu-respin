@@ -137,6 +137,16 @@ deferred-volume-safety-margin-usec = 1
     esac
 done
 
+echo "#disable suspend on idle
+.include /etc/pulse/default.pa
+unload-module module-suspend-on-idle
+
+#fix audio stuttering with wifi stream
+load-module module-null-sink sink_name=rtp
+load-module module-rtp-send source=rtp.monitor
+set-default-sink rtp
+load-module module-rtp-recv" > ~/.config/pulse/default.pa
+
 # Enable LDAC, APTX, APTX-HD, AAC support in PulseAudio Bluetooth
 add-apt-repository ppa:eh5/pulseaudio-a2dp
 apt-get update
